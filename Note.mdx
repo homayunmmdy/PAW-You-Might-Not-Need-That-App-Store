@@ -138,3 +138,30 @@ the OS to install the app and have integration into the operating system.
 > them in different folders.
 
 > It allows to the micro-app architectural pattern.
+
+## Inside Web app manifest
+
+- **id:** you have to add id at first and mostly we add slash
+- **start_url:** maybe user install our app from about page we don't want that to be home page
+  so we add start_url if you don't do it it will package the page that user create paw from it.
+- **scope:** if user open the link out side of your app it will add your pwa then that other link inside
+  that don't let user leave the page
+- then we have name and short_name
+- **display: ** most add standalone
+
+```json
+{
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "name": "CodepadMasters, the best notepad for your device",
+  "short_name": "CodepadM",
+  "display": "standalone",
+  "theme_color": "#55887c"
+}
+```
+
+> There is no standard way to internationalize your web
+> app's metadata using the manifest. You can link to several
+> manifests or create the manifest dynamically from the server.
+
