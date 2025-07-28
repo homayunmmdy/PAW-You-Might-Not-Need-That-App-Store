@@ -113,3 +113,28 @@ inviting them to install it.
 
 > On mobile if you don't meet the basic criteria, standalone installation
 > won't happen. On desktop there are ways to install them as web app.
+
+## Web App Manifest
+
+It's a JSON file that defines all the meta data that will help the browser and
+the OS to install the app and have integration into the operating system.
+
+## Web App Manifest
+
+- W3C spec
+- JSON file
+- Default extension: webmanifest
+- MIME type: application/manifest+json or application/json
+- We have to link it from the HTML (all the document you want)
+
+### Web App Manifest Basics
+
+```html
+<link rel="manifest" href="web.manifest" />
+```
+
+> You can have more than one installable web app (PWA) in the same origin,
+> if you point to different Web App Manifest files. It's recommended to host
+> them in different folders.
+
+> It allows to the micro-app architectural pattern.
