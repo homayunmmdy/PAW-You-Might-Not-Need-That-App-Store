@@ -7,6 +7,7 @@ desktop devices.
 > Ideal for all those apps that consume web content or web services.
 
 > It's not an API or a framework , just a term to describe a design Pattern
+
 > Web Apps, installable Web Apps, Home screen Web Apps.
 
 ## App Development Approaches
@@ -60,3 +61,55 @@ PAW have the both Native and Web.
 - watchOS
 - tvOS
 - Android TV
+
+## Components of a PWA
+
+- Web App
+- Web App Manifest
+- Service Worker
+
+> The concept is changing with time and it's becoming more flexible
+
+### PWA Levels
+
+- Default
+- Basic Metadata provided
+- PWA Criteria Approved
+- Full offline experience
+
+### PWA Criteria
+
+Defined by the browser. If passed , there are hints , banners , dialogs
+or bars explaining to the user that the current web app is installable and
+inviting them to install it.
+
+### Installability Criteria
+
+- Safari on iOS and iPadOs
+  - Includes meta data with:
+  - App's name
+  - Icons
+  - Start URL
+  - Display mode
+- Safari on macOs
+  - No Requirements
+- Chromium
+  - Web app not already installed
+  - HTTPS
+  - Meet basic engagement heuristics
+  - Includes meta data with:
+  - App's name
+  - Icons
+  - Start URL
+  - Display mode
+- Firefox Android-only
+  - Web app not already installed
+  - HTTPS
+  - Includes meta data with:
+  - App's name
+  - Icons
+  - Start URL
+  - Display mode
+
+> On mobile if you don't meet the basic criteria, standalone installation
+> won't happen. On desktop there are ways to install them as web app.
