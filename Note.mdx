@@ -177,6 +177,56 @@ On a separate spec
 - tabbed
 - window-controls-overlay
 
-> For backward compatibility you cna use a standard mode in display and other modes in 
-> display_override as in: 
+> For backward compatibility you cna use a standard mode in display and other modes in
+> display_override as in:
 > "display_override": ["tabbed"]
+
+## Icons on Android
+
+### Shortcut
+
+- Creates a shortcut to browsers's engine
+- It's installed only at the home screen
+- No icon in the launcher
+- It doesn't appear at app's list
+- All browsers use this method by default
+- Browser's badge (Android 8+)
+
+### Web APK
+
+- Only if PWA Criteria passes
+- It's full Android native package
+- It contains only metadata
+- APK is installed silently
+- Icon to home screen and launcher
+- Google Chrome with Play Services
+- Internet on Samsung devices
+- HarmonyOS Huawei devices (similar idea)
+
+## Icons in the Web App Manifest
+
+```json
+"icons": [
+  {
+    "src": "icon.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+   {
+    "src": "icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
+```
+### Recommendations for icons in Manifest 
+
+- Format : PNG , Color space SRGB
+- Used on Android and desktop OS 
+- If there is no exact icon available it will pick the closest one
+- Recommendations sizes 
+  - At least : 192x192,512x512,1024x1024
+  - Deprecated sizes : 72x72,152x152,384x384
+- Format SVG 
+- Used on Android Web APK on some devices 
+- Used on desktop on some operating systems 
