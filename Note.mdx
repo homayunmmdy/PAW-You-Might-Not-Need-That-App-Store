@@ -246,8 +246,9 @@ On a separate spec
 > Maskable Icons will solve the problem of different shapes; it's still
 > a square icon but with enough discardable padding content out of the safe area
 
-here how we say this icon is maskable 
-```json 
+here how we say this icon is maskable
+
+```json
 "icons": [
   {
     "src": "icon.png",
@@ -261,4 +262,21 @@ here how we say this icon is maskable
     "purpose": "maskable"
   }
 ]
+```
+
+### Wep App Icons for iOS and iPadOS
+
+- They will use an icon from the manifest
+- We can specify an specific icon for these platforms by using a
+  **link** in the HTML element
+
+## Icon for iOS
+
+the recommended size is 180x180 you can specify multiply but add only one
+with the size mentioned
+
+```html
+<link rel="app-touch-icon" href="ios_icon.png" />
+
+<link rel="app-touch-icon" href="ios_icon.png" sizes="120x120" />
 ```
