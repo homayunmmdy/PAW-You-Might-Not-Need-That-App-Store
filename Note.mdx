@@ -165,3 +165,18 @@ the OS to install the app and have integration into the operating system.
 > app's metadata using the manifest. You can link to several
 > manifests or create the manifest dynamically from the server.
 
+## Display Modes
+
+- browser (default)
+- standalone (common for PWA)
+- fullscreen (works only on Android)
+- minimal-ui (fallback to browsers)
+
+On a separate spec
+
+- tabbed
+- window-controls-overlay
+
+> For backward compatibility you cna use a standard mode in display and other modes in 
+> display_override as in: 
+> "display_override": ["tabbed"]
