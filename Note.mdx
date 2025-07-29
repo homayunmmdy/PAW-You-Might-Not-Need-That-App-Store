@@ -219,14 +219,46 @@ On a separate spec
   }
 ]
 ```
-### Recommendations for icons in Manifest 
+
+### Recommendations for icons in Manifest
 
 - Format : PNG , Color space SRGB
-- Used on Android and desktop OS 
+- Used on Android and desktop OS
 - If there is no exact icon available it will pick the closest one
-- Recommendations sizes 
+- Recommendations sizes
   - At least : 192x192,512x512,1024x1024
   - Deprecated sizes : 72x72,152x152,384x384
-- Format SVG 
-- Used on Android Web APK on some devices 
-- Used on desktop on some operating systems 
+
+### icons in new versions
+
+- Format SVG
+- Used on Android Web APK on some devices
+- Used on desktop on some operating systems
+
+### Maskable
+
+- Format Maskable PNG
+- Used on Android 8+ by default
+- Logo is designed with icon masks and safe zone in mind,
+  such that any part of the image that is outside the
+  safe zone can safely be ignored and masked away
+
+> Maskable Icons will solve the problem of different shapes; it's still
+> a square icon but with enough discardable padding content out of the safe area
+
+here how we say this icon is maskable 
+```json 
+"icons": [
+  {
+    "src": "icon.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+   {
+    "src": "maskable.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "maskable"
+  }
+]
+```
