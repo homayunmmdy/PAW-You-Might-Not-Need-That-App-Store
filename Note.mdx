@@ -280,3 +280,70 @@ with the size mentioned
 
 <link rel="app-touch-icon" href="ios_icon.png" sizes="120x120" />
 ```
+
+## Splash Screen
+
+Mobile app design pattern that renders a static image while the app
+process is loading
+
+### Splash Screens for Android
+
+- They are automatically generated
+- You can't provide your own image
+- They use the meta data from the Web App Manifest
+
+![](images/splash.png)
+
+### Splash Screen for iOS and iPadOS
+
+- Safari won't use the App Manifest meta data
+- It let us create our own static images.
+- They are known as Startup Images
+- We define them through a **link**
+- We must use a deprecated meta tag
+- It must match exactly the current device's screen size
+- On iPad it gets more complicated
+
+```html
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+<link rel="apple-touch-startup-image" href="splash.png" />
+```
+
+> The problem on Safari is that it needs the image with the exact
+> size of the device's screen
+
+### Startup Images for iOS
+
+- iPhone SE
+- iPhone 7,8,SE 2nd edition
+- iPhone X,XS,11 Pro ,12 Pro , 13 Pro , 14 Pro , 15 Pro
+- iPhone XR , 11 , 12 , 13
+- iPhone 7 Plus , 8 Plus
+- iPhone X Max, XS Max , 11 Pro Max , 12 Pro Max , 13 Pro Max ,
+  14 Pro Max , 15 Pro Max
+- More iPhones coming
+
+### Startup Images for iOS Landscape 
+- iPhone 7 Plus , 8 Plus 
+- iPhone X Max, XS Max , 11 Pro Max , 12 Pro Max , 13 Pro Max ,
+  14 Pro Max , 15 Pro Max
+
+### Startup Images for iPadOS
+- Several iPads available 
+- Portrait and Landscape 
+- Split View 
+- Side View 
+- Any size?
+
+> Brace yourself for more than 20 versions of the splash screen
+
+### Client Side Generator
+- Use **canvas** and Data URI to create the images on the fly 
+- Use PWACompat: 
+  - Open source library by Chrome 
+  - It takes the App Manifest and generates assets for other browsers 
+  - It generates Apple's custom assets, including 
+  startup images on the fly with JavaScript 
+  - It emulates Android splash screens for iOS
+
