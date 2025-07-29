@@ -1,9 +1,26 @@
 {
-    "id": "/",
-    "start_url": "/",
-    "scope": "/",
-    "name": "CodepadMasters, the best notepad for your device",
-    "short_name": "CodepadM",
-    "display": "standalone",
-    "theme_color": "#55887c"
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "name": "CodepadMasters, the best notepad for your device",
+  "short_name": "CodepadM",
+  "display": "standalone",
+  "theme_color": "#55887c",
+  "icons": [
+    {
+      "src": "icons/maskable_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
 }
