@@ -324,60 +324,78 @@ process is loading
   14 Pro Max , 15 Pro Max
 - More iPhones coming
 
-### Startup Images for iOS Landscape 
-- iPhone 7 Plus , 8 Plus 
+### Startup Images for iOS Landscape
+
+- iPhone 7 Plus , 8 Plus
 - iPhone X Max, XS Max , 11 Pro Max , 12 Pro Max , 13 Pro Max ,
   14 Pro Max , 15 Pro Max
 
 ### Startup Images for iPadOS
-- Several iPads available 
-- Portrait and Landscape 
-- Split View 
-- Side View 
+
+- Several iPads available
+- Portrait and Landscape
+- Split View
+- Side View
 - Any size?
 
 > Brace yourself for more than 20 versions of the splash screen
 
 ### Client Side Generator
-- Use **canvas** and Data URI to create the images on the fly 
-- Use PWACompat: 
-  - Open source library by Chrome 
-  - It takes the App Manifest and generates assets for other browsers 
-  - It generates Apple's custom assets, including 
-  startup images on the fly with JavaScript 
+
+- Use **canvas** and Data URI to create the images on the fly
+- Use PWACompat:
+  - Open source library by Chrome
+  - It takes the App Manifest and generates assets for other browsers
+  - It generates Apple's custom assets, including
+    startup images on the fly with JavaScript
   - It emulates Android splash screens for iOS
 
-## Service Worker 
+## Service Worker
 
-> A JavaScript file running in its own thread that will act as a middleware 
-offering a local installed web server or web proxy for your PWA, including 
-resources and API calls. 
+> A JavaScript file running in its own thread that will act as a middleware
+> offering a local installed web server or web proxy for your PWA, including
+> resources and API calls.
 
 - Runs client-side in browsers engine
 - HTTPS required
-- Installed by a web page 
-- Own thread and lifecycle 
-- Acts as a network proxy or local web server in the name of the real server 
-- Abilities to run in the background 
+- Installed by a web page
+- Own thread and lifecycle
+- Acts as a network proxy or local web server in the name of the real server
+- Abilities to run in the background
 - No need for user's permission
 
-## Scope 
+## Scope
+
 An origin (host and port) and a path https://mydomain.com or https://domain.com/myapp
 
-### Service Worker and Scopes 
-- It manages all pages within browser and within installed app from scope 
-- It's installed by any page in the scope 
-- After installed , it can serve all files requested from scope 
-- Only one service worker is allowed 
-- WebKit adds partition management 
+### Service Worker and Scopes
 
-## Caching resources 
-- Service worker has a local cache 
-- We can cache all or some resources 
-- JavaScript promise 
-- Prefetch on installation 
-- Cache on request 
-- App Shell pattern 
+- It manages all pages within browser and within installed app from scope
+- It's installed by any page in the scope
+- After installed , it can serve all files requested from scope
+- Only one service worker is allowed
+- WebKit adds partition management
+
+## Caching resources
+
+- Service worker has a local cache
+- We can cache all or some resources
+- JavaScript promise
+- Prefetch on installation
+- Cache on request
+- App Shell pattern
 
 ## Serving resources
-- The service worker will respond for every request the PWA make 
+
+- The service worker will respond for every request the PWA make
+- It can serve from the cache
+- It can forward the request to the network
+- It can synthesize a response
+- Any mixed algorithm is possible
+
+## Cache service strategies
+
+- Cash First
+  ![](images/cash_first.png)
+- Network First
+- Stale while Revalidate
