@@ -483,3 +483,15 @@ globalThis.addEventListener('install' , event => {
 ```
 
 also you can use library like Workbox 
+
+## Advance PWA UI techniques 
+
+### Avoid Content Selection 
+We use user-select to disable selection on UI element. Use this with responsibility!
+
+```css
+.elements {
+  user-select: none;
+  -webkit-user-select: none;
+}
+```
