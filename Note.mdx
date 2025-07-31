@@ -399,21 +399,21 @@ An origin (host and port) and a path https://mydomain.com or https://domain.com/
 
 ![](images/cash_first.png)
 
-```JavaScript
-
+```js
 // Cache first strategy
-self.addEventListener("fetch", event => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-      caches.match(event.request)  // searching in the cache
-          .then( response => {
-              if (response) {
-                  // The request is in the cache
-                  return response; // cache hit
-              } else {
-                  // We need to go to the network
-                  return fetch(event.request);  // cache miss
-              }
-          })
+    caches
+      .match(event.request) // searching in the cache
+      .then((response) => {
+        if (response) {
+          // The request is in the cache
+          return response; // cache hit
+        } else {
+          // We need to go to the network
+          return fetch(event.request); // cache miss
+        }
+      })
   );
 });
 ```
@@ -422,64 +422,62 @@ self.addEventListener("fetch", event => {
 
 ![](images/network_first.png)
 
-```JavaScript
+```js
 // Network first strategy
-self.addEventListener('fetch', event => {
-    event.respondWith(
-      fetch(event.request) // I go to the network ALWAYS
-        .catch( error => {  // if the network is down, I go to the cache
-            return caches.open("assets")
-                    .then( cache => {
-                         return cache.match(request);
-                 });
-        })
-    );
-  });
-
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    fetch(event.request) // I go to the network ALWAYS
+      .catch((error) => {
+        // if the network is down, I go to the cache
+        return caches.open("assets").then((cache) => {
+          return cache.match(request);
+        });
+      })
+  );
+});
 ```
 
 ### Stale while Revalidate
 
 ![](images/state_while_revalidate.png)
 
-```JavaScript
+```js
 // State while revalidate strategy
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then( response => {
-                // Even if the response is in the cache, we fetch it
-                // and update the cache for future usage
-                const fetchPromise = fetch(event.request).then(
-                     networkResponse => {
-                        caches.open("assets").then( cache => {
-                            cache.put(event.request, networkResponse.clone());
-                            return networkResponse;
-                        });
-                    });
-                // We use the currently cached version if it's there
-                return response || fetchPromise; // cached or a network fetch
-            })
-        );
-    });
-
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      // Even if the response is in the cache, we fetch it
+      // and update the cache for future usage
+      const fetchPromise = fetch(event.request).then((networkResponse) => {
+        caches.open("assets").then((cache) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      });
+      // We use the currently cached version if it's there
+      return response || fetchPromise; // cached or a network fetch
+    })
+  );
+});
 ```
 
 this code we have to add for all strategies
 
-```JavaScript
+```js
 console.log("I am a service worker");
-const url = ['/', 'app.js', 'styles.css',
-    "https://fonts.gstatic.com/s/materialicons/v67/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2"
+const url = [
+  "/",
+  "app.js",
+  "styles.css",
+  "https://fonts.gstatic.com/s/materialicons/v67/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
 ];
 
 // Prefetching the assets
-globalThis.addEventListener('install' , event => {
-    caches.open('pwa').then(cache => {
-        cache.addAll(url)
-    })
-})
-
+globalThis.addEventListener("install", (event) => {
+  caches.open("pwa").then((cache) => {
+    cache.addAll(url);
+  });
+});
 ```
 
 also you can use library like Workbox
@@ -527,13 +525,73 @@ we can ask the availability for all the viewport for us with the viewport meta t
 
 > Apple had many meta tags available for web apps before the web app manifest spec was created
 
-> Do not add any meta tag that you don't know what it's actually doing 
+> Do not add any meta tag that you don't know what it's actually doing
 
 ```html
-<meta
-  name="app-mobile-web-app-status-bar-style"
-  content="black-translucent"
-/>
+<meta name="app-mobile-web-app-status-bar-style" content="black-translucent" />
 ```
+
 ![](images/app-mobile-web-app-status-bar-style.png);
 
+## Pull to Refresh
+
+we use CSS Overscroll Behavior
+
+```css
+body {
+  Overscroll-behavior-y:contain:
+}
+```
+
+> Use the new View Transition API to transition between page
+> change , if you are a SPA or MPA
+
+## Use System Fonts
+
+On some platforms, only system font are available.
+
+```css
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
+  Ubuntu, Cantarell, "Helvetica 
+Neue", sans-serif;
+```
+
+### Use Web Share API
+
+```js
+navigator.share({
+  title: "Recommendation",
+  text: "Check my website",
+  url: "https://...",
+});
+```
+
+### Disable Touch Callout
+
+iOS context menu when long pressing a link; disabling is useful for JavaScript: links
+
+```css
+a {
+  -webkit-touch-callout: none;
+}
+```
+
+## Reduced Motion Media Query
+
+We should stop animations and transitions for users with this setting enabled
+
+```css
+@media (prefers-reduced-motion: reduce) {
+}
+```
+
+## Persistent Storage Request
+
+Firefox will ask the user, Chromium will grant or deny based on criteria
+
+```js
+if (navigator.storage && navigator.storage.persist) {
+  const granted = await navigator.storage.persist();
+  track("storage-persist-request", granted);
+}
+```
