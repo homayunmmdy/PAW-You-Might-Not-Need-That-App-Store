@@ -395,7 +395,91 @@ An origin (host and port) and a path https://mydomain.com or https://domain.com/
 
 ## Cache service strategies
 
-- Cash First
-  ![](images/cash_first.png)
-- Network First
-- Stale while Revalidate
+### Cash First
+
+![](images/cash_first.png)
+
+```JavaScript
+
+// Cache first strategy
+self.addEventListener("fetch", event => {
+  event.respondWith(
+      caches.match(event.request)  // searching in the cache
+          .then( response => {
+              if (response) {
+                  // The request is in the cache
+                  return response; // cache hit
+              } else {
+                  // We need to go to the network
+                  return fetch(event.request);  // cache miss
+              }
+          })
+  );
+});
+```
+
+### Network First
+
+![](images/network_first.png)
+
+```JavaScript
+// Network first strategy
+self.addEventListener('fetch', event => {
+    event.respondWith(
+      fetch(event.request) // I go to the network ALWAYS
+        .catch( error => {  // if the network is down, I go to the cache
+            return caches.open("assets")
+                    .then( cache => {
+                         return cache.match(request);
+                 });
+        })
+    );
+  });
+
+```
+
+### Stale while Revalidate
+
+![](images/state_while_revalidate.png)
+
+```JavaScript
+// State while revalidate strategy
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        caches.match(event.request)
+            .then( response => {
+                // Even if the response is in the cache, we fetch it
+                // and update the cache for future usage
+                const fetchPromise = fetch(event.request).then(
+                     networkResponse => {
+                        caches.open("assets").then( cache => {
+                            cache.put(event.request, networkResponse.clone());
+                            return networkResponse;
+                        });
+                    });
+                // We use the currently cached version if it's there
+                return response || fetchPromise; // cached or a network fetch
+            })
+        );
+    });
+
+```
+
+this code we have to add for all strategies
+
+```JavaScript
+console.log("I am a service worker");
+const url = ['/', 'app.js', 'styles.css',
+    "https://fonts.gstatic.com/s/materialicons/v67/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2"
+];
+
+// Prefetching the assets
+globalThis.addEventListener('install' , event => {
+    caches.open('pwa').then(cache => {
+        cache.addAll(url)
+    })
+})
+
+```
+
+also you can use library like Workbox 

@@ -10,18 +10,15 @@ globalThis.addEventListener('install' , event => {
     })
 })
 
-// Cache first strategy
-self.addEventListener("fetch", event => {
+// Network first strategy
+self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request)  // searching in the cache
-            .then( response => {
-                if (response) {
-                    // The request is in the cache 
-                    return response; // cache hit
-                } else {
-                    // We need to go to the network  
-                    return fetch(event.request);  // cache miss
-                }
-            })
+      fetch(event.request) // I go to the network ALWAYS
+        .catch( error => {  // if the network is down, I go to the cache
+            return caches.open("assets")
+                    .then( cache => {
+                         return cache.match(request);
+                 });
+        })
     );
-});
+  });
