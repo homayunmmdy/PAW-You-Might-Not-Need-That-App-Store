@@ -482,11 +482,12 @@ globalThis.addEventListener('install' , event => {
 
 ```
 
-also you can use library like Workbox 
+also you can use library like Workbox
 
-## Advance PWA UI techniques 
+## Advance PWA UI techniques
 
-### Avoid Content Selection 
+### Avoid Content Selection
+
 We use user-select to disable selection on UI element. Use this with responsibility!
 
 ```css
@@ -495,3 +496,44 @@ We use user-select to disable selection on UI element. Use this with responsibil
   -webkit-user-select: none;
 }
 ```
+
+## Use Safe Areas
+
+With CSS Environmental Variables support through the evn() function and for variables.
+
+```css
+.container {
+  margin: env(safe-area-inset-top) env(safe-area-inset-right) env(
+      safe-area-inset-bottom
+    ) env(safe-area-inset-left);
+}
+```
+
+### PWAs in standalone for devices with notch
+
+- Ask for COver Viewport
+- Use Safe Areas
+
+## Cover Viewport
+
+we can ask the availability for all the viewport for us with the viewport meta tag
+
+```html
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0, viewport-fit=cover"
+/>
+```
+
+> Apple had many meta tags available for web apps before the web app manifest spec was created
+
+> Do not add any meta tag that you don't know what it's actually doing 
+
+```html
+<meta
+  name="app-mobile-web-app-status-bar-style"
+  content="black-translucent"
+/>
+```
+![](images/app-mobile-web-app-status-bar-style.png);
+
