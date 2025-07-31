@@ -595,3 +595,51 @@ if (navigator.storage && navigator.storage.persist) {
   track("storage-persist-request", granted);
 }
 ```
+
+> Deploying a PWA is just Deploying a web app
+
+## Detect Installation API Availability
+
+Chromium-only
+
+```js
+// Tracking installation availability
+window.addEventListener("beforeinstallprompt", (event) => {
+  track("install", "available");
+});
+```
+
+### Before Install Prompt event
+
+- It was part of Web App Manifest spec
+- Now implemented by Chromium only
+- Event is fired when
+  - Current URL passes the PWA criteria
+  - The PWA is not already installed
+
+> There are always-available installation menu items that can't be tracked
+
+## Detect Installation
+
+Chromium-only
+
+```js
+// Tracking PWA installation on Chromium
+window.addEventListener("appinstalled", (event) => {
+  track("install", "installed");
+});
+```
+
+All these APIs are not available in Safari or Firefox on Android
+
+### Custom Install Promotion 
+- It's based on beforeinstallprompt event 
+- We need to wait for event 
+- Hide the promotion if: 
+  - The user is not in browser display mode 
+  - You know the app is installed 
+  - You know an alternative app is installed 
+- While no event is filed you cna 
+  - Hide the promotion 
+  - Fallback to manual instructions 
+  
