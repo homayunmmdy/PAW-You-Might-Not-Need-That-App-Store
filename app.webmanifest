@@ -6,6 +6,7 @@
   "short_name": "CodepadM",
   "display": "standalone",
   "theme_color": "#55887c",
+  "description": "The best notepad app for taking notes while doing Frontend masters course",
   "icons": [
     {
       "src": "icons/maskable_icon.png",
@@ -21,6 +22,13 @@
     {
       "src": "icons/icon-1024.png",
       "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot.png",
+      "sizes": "1170x2532",
       "type": "image/png"
     }
   ]
